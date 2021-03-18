@@ -256,7 +256,7 @@ export default {
       window.console.log("der user id for update ", +data.id);
       this.$axios
         .put(
-          "http://localhost:8081/user/", {
+          `http://localhost:8081/user/${data.id}`, {
             id: data.id,
             firstName: data.firstName,
             lastName: data.lastName,
@@ -273,26 +273,26 @@ export default {
         });
     },
 
-    deleteUser(id) {
+    deleteUser(data) {
       this.$axios
-        .delete(`http://localhost:8081/user/${id}`,
+        .delete(`http://localhost:8081/user/${data.id}`,
           {
             params: {
-              id: this.id,
+              id: data.id,
             },
           })
         .then(() => {
           this.getAllUser();
-          window.console.log("user id gelöscht", +this.id);
+          window.console.log("user id gelöscht", +data.id);
         })
         .catch((err) => {
-          window.console.error(err, id);
+          window.console.error(err, data.id);
         });
     },
 
-    createUser(id) {
+    createUser(data) {
       this.$axios
-        .post(`http://localhost:8081/user/${id}`)
+        .post(`http://localhost:8081/user/${data.id}`)
         .then(() => {
           this.getAllUser();
         })
@@ -304,7 +304,7 @@ export default {
     close() {
       this.show_dialog = false;
       setTimeout(() => {
-        this.editedItem = Object.assign(...this.defaultItem);
+        this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       }, 300);
     },
