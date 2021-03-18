@@ -60,7 +60,7 @@ module.exports = function (/* ctx */) {
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       preloadChunks: true,
-      showProgress: false,
+      showProgress: true,
       // gzip: true,
       // analyze: true,
 
@@ -104,7 +104,9 @@ module.exports = function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: [
+        'Meta'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
