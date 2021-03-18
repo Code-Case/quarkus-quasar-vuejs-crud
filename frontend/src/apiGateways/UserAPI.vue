@@ -13,12 +13,15 @@
         dense
         binary-state-sort
       >
+
+      <!-- create user popup -->
+
         <template v-slot:top>
           <q-btn
             dense
             color="secondary"
             label="Add User"
-            @click="show_dialog_addUser = true"
+            @click="show_dialog_addUser= true"
             no-caps
           />
 
@@ -45,6 +48,37 @@
                     color="primary"
                     v-close-popup
                     @click="createUser"
+                  />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
+          </div>
+
+         <!-- edit user popup -->
+
+          <div class="q-pa-sm q-gutter-sm">
+            <q-dialog v-model="show_dialog_editUser">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6">User bearbeiten</div>
+                </q-card-section>
+
+                <q-card-section>
+                  <div class="row">
+                    <q-input v-model="editedItem.firstName" label="Vorname" />
+                    <q-input v-model="editedItem.lastName" label="Nachname" />
+                    <q-input v-model="editedItem.emailAdress" label="Email" />
+                    <q-input v-model="editedItem.userRole" label="Rolle" />
+                  </div>
+                </q-card-section>
+
+                <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    label="OK"
+                    color="primary"
+                    v-close-popup
+                    @click="updateUser"
                   />
                 </q-card-actions>
               </q-card>
@@ -215,17 +249,19 @@ export default {
           window.console.error(err);
         });
     },
-    updateUser(row) {
-      this.show_dialog = true;
-      window.console.log("user id for update ", +this.data.indexOf(row));
+    updateUser(data) {
+      this.editedIndex = this.data.indexOf(data);
+      this.editedItem = Object.assign({}, data);
+      this.show_dialog_editUser = true;
+      window.console.log("der user id for update ", +data.id);
       this.$axios
         .put(
           "http://localhost:8081/user/", {
-            id: this.data.indexOf(row),
-            firstName: this.editedItem.firstName,
-            lastName: this.editedItem.lastName,
-            emailAdress: this.editedItem.emailAdress,
-            userRole: this.editedItem.userRole,
+            id: data.id,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            emailAdress: data.emailAdress,
+            userRole: data.userRole,
           },
 
         )

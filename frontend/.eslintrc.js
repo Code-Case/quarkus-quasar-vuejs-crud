@@ -6,7 +6,7 @@ module.exports = {
 
   parserOptions: {
     parser: 'babel-eslint',
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 9, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module' // Allows for the use of imports
   },
 
@@ -62,6 +62,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
     quotes: ["error", "double"],
+    'prefer-object-spread': 'off',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
