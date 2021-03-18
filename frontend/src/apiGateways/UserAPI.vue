@@ -18,12 +18,12 @@
             dense
             color="secondary"
             label="Add User"
-            @click="show_dialog = true"
+            @click="show_dialog_addUser = true"
             no-caps
           />
 
           <div class="q-pa-sm q-gutter-sm">
-            <q-dialog v-model="show_dialog">
+            <q-dialog v-model="show_dialog_addUser">
               <q-card>
                 <q-card-section>
                   <div class="text-h6">Neuen User anlegen</div>
@@ -31,10 +31,10 @@
 
                 <q-card-section>
                   <div class="row">
-                    <q-input v-model="editedItem.firstName" label="Vorname" />
-                    <q-input v-model="editedItem.lastName" label="Nachname" />
-                    <q-input v-model="editedItem.emailAdress" label="Email" />
-                    <q-input v-model="editedItem.userRole" label="Rolle" />
+                    <q-input v-model="firstName" label="Vorname" />
+                    <q-input v-model="lastName" label="Nachname" />
+                    <q-input v-model="emailAdress" label="Email" />
+                    <q-input v-model="userRole" label="Rolle" />
                   </div>
                 </q-card-section>
 
@@ -44,7 +44,7 @@
                     label="OK"
                     color="primary"
                     v-close-popup
-                    @click="updateUser"
+                    @click="createUser"
                   />
                 </q-card-actions>
               </q-card>
@@ -136,7 +136,8 @@ export default {
   data() {
     return {
       data: [],
-      show_dialog: false,
+      show_dialog_addUser: false,
+      show_dialog_editUser: false,
       loading: false,
       editedIndex: -1,
       editedItem: {
@@ -253,9 +254,9 @@ export default {
         });
     },
 
-    createUser(row) {
+    createUser(id) {
       this.$axios
-        .post("http://localhost:8081/user", this.data.indexOf(row))
+        .post(`http://localhost:8081/user/${id}`)
         .then(() => {
           this.getAllUser();
         })
