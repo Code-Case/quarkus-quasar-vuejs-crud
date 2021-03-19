@@ -21,7 +21,6 @@ class UsersResource(val repository: UsersRepository) {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     fun create(user: Users): Response {
-        repository.persist(user)
         return Response.ok(user).status(201).build()
     }
 

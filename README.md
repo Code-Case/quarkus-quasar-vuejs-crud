@@ -1,5 +1,5 @@
 # Quarkus - Quasar - Vuejs - PWA - CRUD Demo
-Not production ready - missing CRUD functionality
+Not production ready
 
 ## Api Backend
 
