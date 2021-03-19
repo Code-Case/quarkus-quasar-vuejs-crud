@@ -281,8 +281,6 @@ export default {
     },
 
     deleteUser(data) {
-      this.editedIndex = this.data.indexOf(data);
-      this.editedItem = Object.assign({}, data);
       this.$axios
         .delete(`http://localhost:8081/user/${data.id}`)
         .then(() => {
