@@ -257,7 +257,6 @@ export default {
         });
     },
     updateUser(data) {
-      this.editedIndex = this.data.indexOf(data);
       this.editedItem = Object.assign({}, data);
       this.show_dialog_editUser = true;
 
