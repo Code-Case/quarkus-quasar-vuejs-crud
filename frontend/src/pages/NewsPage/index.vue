@@ -8,8 +8,8 @@
 </style>
 
 <script>
-import StarWarsNews from "../apiGateways/StarWarsNews";
-import OpenNewsAPI from "../apiGateways/OpenNewsAPI";
+import StarWarsNews from "./StarWarsNews";
+import OpenNewsAPI from "./OpenNewsAPI";
 
 export default {
   name: "News",

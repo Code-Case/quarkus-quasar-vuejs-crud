@@ -252,12 +252,12 @@ export default {
     updateUser(data) {
       this.editedIndex = this.data.indexOf(data);
       this.editedItem = Object.assign({}, data);
+
       this.show_dialog_editUser = true;
       window.console.log("der user id for update ", +data.id);
       this.$axios
         .put(
           `http://localhost:8081/user/${data.id}`, {
-            id: data.id,
             firstName: data.firstName,
             lastName: data.lastName,
             emailAdress: data.emailAdress,
@@ -275,15 +275,9 @@ export default {
 
     deleteUser(data) {
       this.$axios
-        .delete(`http://localhost:8081/user/${data.id}`,
-          {
-            params: {
-              id: data.id,
-            },
-          })
+        .delete(`http://localhost:8081/user/${data.id}`)
         .then(() => {
           this.getAllUser();
-          window.console.log("user id gelöscht", +data.id);
         })
         .catch((err) => {
           window.console.error(err, data.id);

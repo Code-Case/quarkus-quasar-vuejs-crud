@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UserAPI from "../apiGateways/UserAPI";
+import UserAPI from "./UserAPI";
 
 export default {
   name: "UserEditor",
