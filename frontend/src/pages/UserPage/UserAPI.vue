@@ -12,19 +12,19 @@
         :loading="loading"
         dense
         binary-state-sort
+        @request="getAllUser"
+        :pagination="initialPagination"
       >
-
-      <!-- create user popup -->
 
         <template v-slot:top>
           <q-btn
             dense
             color="secondary"
             label="Add User"
-            @click="show_dialog_addUser= true"
+            @click="show_dialog_addUser=true"
             no-caps
           />
-
+      <!-- create user popup -->
           <div class="q-pa-sm q-gutter-sm">
             <q-dialog v-model="show_dialog_addUser">
               <q-card>
@@ -84,56 +84,57 @@
               </q-card>
             </q-dialog>
           </div>
+
+                   <!-- delete user popup -->
+
+          <div class="q-pa-sm q-gutter-sm">
+            <q-dialog v-model="show_dialog_deleteUser">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6">User löschen</div>
+                </q-card-section>
+
+                <q-card-section>
+                  <div class="row">
+                    <q-input v-model="editedItem.firstName" label="Vorname" />
+                    <q-input v-model="editedItem.lastName" label="Nachname" />
+                    <q-input v-model="editedItem.emailAdress" label="Email" />
+                    <q-input v-model="editedItem.userRole" label="Rolle" />
+                  </div>
+                </q-card-section>
+
+                <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    label="OK"
+                    color="primary"
+                    v-close-popup
+                    @click="deleteUser"
+                  />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
+          </div>
         </template>
 
         <template v-slot:body="props">
           <q-tr :props="props">
           <q-td key="id" :props="props">
               {{ props.row.id }}
-              <q-popup-edit v-model="props.row.id">
-                <q-input
-                  v-model="props.row.id"
-                  dense
-                  autofocus
-                  counter
-                />
-              </q-popup-edit>
             </q-td>
             <q-td key="firstName" :props="props">
               {{ props.row.firstName }}
-              <q-popup-edit v-model="props.row.firstName">
-                <q-input
-                  v-model="props.row.firstName"
-                  dense
-                  autofocus
-                  counter
-                />
-              </q-popup-edit>
             </q-td>
             <q-td key="lastName" :props="props">
               {{ props.row.lastName }}
-              <q-popup-edit v-model="props.row.lastName">
-                <q-input v-model="props.row.lastName" dense autofocus counter />
-              </q-popup-edit>
             </q-td>
 
             <q-td key="emailAdress" :props="props">
               {{ props.row.emailAdress }}
-              <q-popup-edit v-model="props.row.emailAdress">
-                <q-input
-                  v-model="props.row.emailAdress"
-                  dense
-                  autofocus
-                  counter
-                />
-              </q-popup-edit>
             </q-td>
 
             <q-td key="userRole" :props="props">
               {{ props.row.userRole }}
-              <q-popup-edit v-model="props.row.userRole">
-                <q-input v-model="props.row.userRole" dense autofocus counter />
-              </q-popup-edit>
             </q-td>
 
              <q-td key="actionEdit" :props="props">
@@ -169,9 +170,15 @@ export default {
   components: {},
   data() {
     return {
+      initialPagination: {
+        sortBy: "desc",
+        descending: false,
+        rowsPerPage: 20,
+      },
       data: [],
       show_dialog_addUser: false,
       show_dialog_editUser: false,
+      show_dialog_deleteUser: false,
       loading: false,
       editedIndex: -1,
       editedItem: {
@@ -252,9 +259,9 @@ export default {
     updateUser(data) {
       this.editedIndex = this.data.indexOf(data);
       this.editedItem = Object.assign({}, data);
-
       this.show_dialog_editUser = true;
-      window.console.log("der user id for update ", +data.id);
+
+      window.console.log("user id for update ", +data.id);
       this.$axios
         .put(
           `http://localhost:8081/user/${data.id}`, {
@@ -263,9 +270,9 @@ export default {
             emailAdress: data.emailAdress,
             userRole: data.userRole,
           },
-
         )
         .then(() => {
+          window.console.log(this.data);
           this.getAllUser();
         })
         .catch((err) => {
@@ -274,6 +281,8 @@ export default {
     },
 
     deleteUser(data) {
+      this.editedIndex = this.data.indexOf(data);
+      this.editedItem = Object.assign({}, data);
       this.$axios
         .delete(`http://localhost:8081/user/${data.id}`)
         .then(() => {
@@ -284,9 +293,14 @@ export default {
         });
     },
 
-    createUser(data) {
+    createUser() {
       this.$axios
-        .post(`http://localhost:8081/user/${data.id}`)
+        .post("http://localhost:8081/user/", {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          emailAdress: this.emailAdress,
+          userRole: this.userRole,
+        })
         .then(() => {
           this.getAllUser();
         })
