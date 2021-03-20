@@ -15,16 +15,15 @@
         @request="getAllUser"
         :pagination="initialPagination"
       >
-
         <template v-slot:top>
           <q-btn
             dense
             color="secondary"
             label="Add User"
-            @click="show_dialog_addUser=true"
+            @click="show_dialog_addUser = true"
             no-caps
           />
-      <!-- create user popup -->
+          <!-- create user popup -->
           <div class="q-pa-sm q-gutter-sm">
             <q-dialog v-model="show_dialog_addUser">
               <q-card>
@@ -37,8 +36,17 @@
                     <q-input v-model="firstName" label="Vorname" />
                     <q-input v-model="lastName" label="Nachname" />
                     <q-input v-model="emailAdress" label="Email" />
-                    <q-input v-model="userRole" label="Rolle" />
                   </div>
+                  <q-select
+                    @filter="filterFn"
+                    @filter-abort="abortFilterFn"
+                    outlined
+                    v-model="userRole"
+                    :options="options"
+                    label="Rolle"
+                    transition-show="flip-up"
+                    transition-hide="flip-down"
+                  />
                 </q-card-section>
 
                 <q-card-actions align="right">
@@ -54,7 +62,7 @@
             </q-dialog>
           </div>
 
-         <!-- edit user popup -->
+          <!-- edit user popup -->
 
           <div class="q-pa-sm q-gutter-sm">
             <q-dialog v-model="show_dialog_editUser">
@@ -84,12 +92,11 @@
               </q-card>
             </q-dialog>
           </div>
-
         </template>
 
         <template v-slot:body="props">
           <q-tr :props="props">
-          <q-td key="id" :props="props">
+            <q-td key="id" :props="props">
               {{ props.row.id }}
             </q-td>
             <q-td key="firstName" :props="props">
@@ -107,7 +114,7 @@
               {{ props.row.userRole }}
             </q-td>
 
-             <q-td key="actionEdit" :props="props">
+            <q-td key="actionEdit" :props="props">
               <q-btn
                 color="blue"
                 label="Edit"
@@ -126,7 +133,6 @@
                 no-caps
               />
             </q-td>
-
           </q-tr>
         </template>
       </q-table>
@@ -140,6 +146,8 @@ export default {
   components: {},
   data() {
     return {
+      model: null,
+      options: ["User", "Editor", "Admin"],
       initialPagination: {
         sortBy: "desc",
         descending: false,
@@ -231,14 +239,12 @@ export default {
 
       window.console.log("user id for update ", +data.id);
       await this.$axios
-        .put(
-          `http://localhost:8081/user/${data.id}`, {
-            firstName: this.firstName,
-            lastName: this.lastName,
-            emailAdress: this.emailAdress,
-            userRole: this.userRole,
-          },
-        )
+        .put(`http://localhost:8081/user/${data.id}`, {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          emailAdress: this.emailAdress,
+          userRole: this.userRole,
+        })
         .then(() => {
           window.console.log(this.data);
           this.getAllUser();
