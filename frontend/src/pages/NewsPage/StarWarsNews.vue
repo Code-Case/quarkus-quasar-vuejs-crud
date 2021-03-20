@@ -38,11 +38,11 @@ export default {
     };
   },
   async created() {
-    this.getMovies();
+    await this.getMovies();
   },
   methods: {
-    getMovies() {
-      this.$axios
+    async getMovies() {
+      await this.$axios
         .get("https://swapi.dev/api/films/")
         .then((resp) => {
           this.movies = resp.data.results.slice(0, 4);

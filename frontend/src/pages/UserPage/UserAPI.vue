@@ -85,36 +85,6 @@
             </q-dialog>
           </div>
 
-                   <!-- delete user popup -->
-
-          <div class="q-pa-sm q-gutter-sm">
-            <q-dialog v-model="show_dialog_deleteUser">
-              <q-card>
-                <q-card-section>
-                  <div class="text-h6">User löschen</div>
-                </q-card-section>
-
-                <q-card-section>
-                  <div class="row">
-                    <q-input v-model="editedItem.firstName" label="Vorname" />
-                    <q-input v-model="editedItem.lastName" label="Nachname" />
-                    <q-input v-model="editedItem.emailAdress" label="Email" />
-                    <q-input v-model="editedItem.userRole" label="Rolle" />
-                  </div>
-                </q-card-section>
-
-                <q-card-actions align="right">
-                  <q-btn
-                    flat
-                    label="OK"
-                    color="primary"
-                    v-close-popup
-                    @click="deleteUser"
-                  />
-                </q-card-actions>
-              </q-card>
-            </q-dialog>
-          </div>
         </template>
 
         <template v-slot:body="props">
@@ -178,7 +148,6 @@ export default {
       data: [],
       show_dialog_addUser: false,
       show_dialog_editUser: false,
-      show_dialog_deleteUser: false,
       loading: false,
       editedIndex: -1,
       editedItem: {
@@ -241,12 +210,12 @@ export default {
     };
   },
   async created() {
-    this.getAllUser();
+    await this.getAllUser();
   },
 
   methods: {
-    getAllUser() {
-      this.$axios
+    async getAllUser() {
+      await this.$axios
         .get("http://localhost:8081/user")
         .then((response) => {
           this.data = response.data;
@@ -256,18 +225,18 @@ export default {
           window.console.error(err);
         });
     },
-    updateUser(data) {
+    async updateUser(data) {
       this.editedItem = Object.assign({}, data);
       this.show_dialog_editUser = true;
 
       window.console.log("user id for update ", +data.id);
-      this.$axios
+      await this.$axios
         .put(
           `http://localhost:8081/user/${data.id}`, {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            emailAdress: data.emailAdress,
-            userRole: data.userRole,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            emailAdress: this.emailAdress,
+            userRole: this.userRole,
           },
         )
         .then(() => {
@@ -279,8 +248,8 @@ export default {
         });
     },
 
-    deleteUser(data) {
-      this.$axios
+    async deleteUser(data) {
+      await this.$axios
         .delete(`http://localhost:8081/user/${data.id}`)
         .then(() => {
           this.getAllUser();
@@ -290,8 +259,8 @@ export default {
         });
     },
 
-    createUser() {
-      this.$axios
+    async createUser() {
+      await this.$axios
         .post("http://localhost:8081/user/", {
           firstName: this.firstName,
           lastName: this.lastName,

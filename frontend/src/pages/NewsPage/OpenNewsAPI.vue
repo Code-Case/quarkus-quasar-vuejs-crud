@@ -37,11 +37,11 @@ export default {
     };
   },
   async created() {
-    this.getNews();
+    await this.getNews();
   },
   methods: {
-    getNews() {
-      this.$axios
+    async getNews() {
+      await this.$axios
         .get(
           "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=751dd9ba2a62432ab7e7acbc62cb0512",
         )
