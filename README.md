@@ -3,7 +3,7 @@ Not production ready
 
 ## Api Backend
 
-This project uses Quarkus as Backend with a PostgreSQL DB, the Supersonic Subatomic Java Framework.
+This project uses Quarkus as Backend with a PostgreSQL DB
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
