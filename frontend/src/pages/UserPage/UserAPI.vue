@@ -91,7 +91,31 @@
                     label="OK"
                     color="primary"
                     v-close-popup
-                    @click="saved"
+                    @click="saveEdits"
+                  />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
+          </div>
+
+          <!-- edit user popup -->
+
+          <div class="q-pa-sm q-gutter-sm">
+            <q-dialog v-model="show_dialog_deleteUser">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6">
+                    User {{ editedItem.firstName }} mit Id:
+                    {{ editedItem.id }} wirklich löschen?
+                  </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    label="Löschen"
+                    color="primary"
+                    v-close-popup
+                    @click="deleteUser"
                   />
                 </q-card-actions>
               </q-card>
@@ -123,7 +147,7 @@
               <q-btn
                 color="blue"
                 label="Edit"
-                @click="updateUser(props.row)"
+                @click="openEditDialog(props.row)"
                 size="sm"
                 no-caps
               />
@@ -133,7 +157,7 @@
               <q-btn
                 color="red"
                 label="Delete"
-                @click="deleteUser(props.row)"
+                @click="openDeleteDialog(props.row)"
                 size="sm"
                 no-caps
               />
@@ -161,6 +185,7 @@ export default {
       data: [],
       show_dialog_addUser: false,
       show_dialog_editUser: false,
+      show_dialog_deleteUser: false,
       loading: false,
       editedIndex: -1,
       editedItem: {
@@ -238,9 +263,13 @@ export default {
           window.console.error(err);
         });
     },
-    async updateUser(data) {
+    openEditDialog(data) {
       this.editedItem = Object.assign({}, data);
       this.show_dialog_editUser = true;
+    },
+    openDeleteDialog(data) {
+      this.editedItem = Object.assign({}, data);
+      this.show_dialog_deleteUser = true;
     },
 
     async createUser() {
@@ -258,17 +287,8 @@ export default {
           window.console.error(err);
         });
     },
-
-    close() {
-      this.show_dialog = false;
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      }, 300);
-    },
-    saved() {
-      window.console.log("user id for update ", +this.editedItem.id);
-      this.$axios
+    async saveEdits() {
+      await this.$axios
         .put(`http://localhost:8081/user/${this.editedItem.id}`, {
           firstName: this.editedItem.firstName,
           lastName: this.editedItem.lastName,
@@ -283,14 +303,14 @@ export default {
           window.console.error(err);
         });
     },
-    async deleteUser(data) {
+    async deleteUser() {
       await this.$axios
-        .delete(`http://localhost:8081/user/${data.id}`)
+        .delete(`http://localhost:8081/user/${this.editedItem.id}`)
         .then(() => {
           this.getAllUser();
         })
         .catch((err) => {
-          window.console.error(err, data.id);
+          window.console.error(err, this.editedItem.id);
         });
     },
   },
