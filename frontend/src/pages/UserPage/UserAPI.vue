@@ -288,12 +288,10 @@ export default {
     },
     async saveEdits() {
       await this.$axios
-        .put(`http://localhost:8081/user/${this.editedItem.id}`, {
-          firstName: this.editedItem.firstName,
-          lastName: this.editedItem.lastName,
-          emailAdress: this.editedItem.emailAdress,
-          userRole: this.editedItem.userRole,
-        })
+        .put(
+          `http://localhost:8081/user/${this.editedItem.id}`,
+          this.editedItem
+        )
         .then(() => {
           this.getAllUser();
         })

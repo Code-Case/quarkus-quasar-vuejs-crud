@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
   // This option interrupts the configuration hierarchy at this file
@@ -63,6 +64,7 @@ module.exports = {
     'prefer-promise-reject-errors': 'off',
     quotes: ["error", "double"],
     'prefer-object-spread': 'off',
+    'comma-dangle': ['error', 'never']
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
