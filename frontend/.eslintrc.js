@@ -62,7 +62,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
-    quotes: ["error", "double"],
+    'quotes': ['error', 'double'],
     'prefer-object-spread': 'off',
     'comma-dangle': ['error', 'never'],
 
