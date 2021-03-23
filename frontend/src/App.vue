@@ -3,7 +3,7 @@
     <q-layout view="hHh Lpr fFf">
       <q-header elevated>
         <q-toolbar>
-          <q-toolbar-title> Sample App </q-toolbar-title>
+          <q-toolbar-title> Quarkus App </q-toolbar-title>
 
           <q-tabs
             dense

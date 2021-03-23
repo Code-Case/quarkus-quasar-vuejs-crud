@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <div>
     <div class="text-h2 row justify-center">User Editor</div>
 
     <div class="q-pa-md justify-center">
@@ -38,8 +38,6 @@
                     <q-input v-model="emailAdress" label="Email" />
                   </div>
                   <q-select
-                    @filter="filterFn"
-                    @filter-abort="abortFilterFn"
                     outlined
                     v-model="userRole"
                     :options="options"
@@ -76,7 +74,14 @@
                     <q-input v-model="editedItem.firstName" label="Vorname" />
                     <q-input v-model="editedItem.lastName" label="Nachname" />
                     <q-input v-model="editedItem.emailAdress" label="Email" />
-                    <q-input v-model="editedItem.userRole" label="Rolle" />
+                    <q-select
+                      outlined
+                      v-model="editedItem.userRole"
+                      :options="options"
+                      label="Rolle"
+                      transition-show="flip-up"
+                      transition-hide="flip-down"
+                    />
                   </div>
                 </q-card-section>
 
@@ -86,7 +91,7 @@
                     label="OK"
                     color="primary"
                     v-close-popup
-                    @click="updateUser"
+                    @click="saved"
                   />
                 </q-card-actions>
               </q-card>
@@ -137,7 +142,7 @@
         </template>
       </q-table>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script>
@@ -236,33 +241,6 @@ export default {
     async updateUser(data) {
       this.editedItem = Object.assign({}, data);
       this.show_dialog_editUser = true;
-
-      window.console.log("user id for update ", +data.id);
-      await this.$axios
-        .put(`http://localhost:8081/user/${data.id}`, {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          emailAdress: this.emailAdress,
-          userRole: this.userRole,
-        })
-        .then(() => {
-          window.console.log(this.data);
-          this.getAllUser();
-        })
-        .catch((err) => {
-          window.console.error(err);
-        });
-    },
-
-    async deleteUser(data) {
-      await this.$axios
-        .delete(`http://localhost:8081/user/${data.id}`)
-        .then(() => {
-          this.getAllUser();
-        })
-        .catch((err) => {
-          window.console.error(err, data.id);
-        });
     },
 
     async createUser() {
@@ -287,6 +265,33 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       }, 300);
+    },
+    saved() {
+      window.console.log("user id for update ", +this.editedItem.id);
+      this.$axios
+        .put(`http://localhost:8081/user/${this.editedItem.id}`, {
+          firstName: this.editedItem.firstName,
+          lastName: this.editedItem.lastName,
+          emailAdress: this.editedItem.emailAdress,
+          userRole: this.editedItem.userRole,
+        })
+        .then(() => {
+          window.console.log(this.data);
+          this.getAllUser();
+        })
+        .catch((err) => {
+          window.console.error(err);
+        });
+    },
+    async deleteUser(data) {
+      await this.$axios
+        .delete(`http://localhost:8081/user/${data.id}`)
+        .then(() => {
+          this.getAllUser();
+        })
+        .catch((err) => {
+          window.console.error(err, data.id);
+        });
     },
   },
 };

@@ -46,7 +46,7 @@ class UsersResource(val repository: UsersRepository) {
     fun update(user: Users, @PathParam("id") id: Long): Response {
         repository.update("" +
                 "firstName = '${user.firstName}', " +
-                "lastName = ${user.lastName}, " +
+                "lastName = '${user.lastName}', " +
                 "emailAdress = '${user.emailAdress}', " +
                 "userRole = '${user.userRole}' " +
                 "where id = $id")

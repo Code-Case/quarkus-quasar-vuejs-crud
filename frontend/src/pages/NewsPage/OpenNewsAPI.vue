@@ -15,7 +15,9 @@
 
         <q-card-section>
           <div class="text-h6 q-mb-md">{{ article.title }}</div>
-          <div class="text-subtitle2">{{ article.description | truncateByWord}}</div>
+          <div class="text-subtitle2">
+            {{ article.description | truncateByWord }}
+          </div>
         </q-card-section>
       </q-card>
     </div>
@@ -27,7 +29,6 @@
 </style>
 
 <script>
-
 export default {
   name: "OpenNewsAPI",
   components: {},

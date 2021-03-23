@@ -15,7 +15,9 @@
 
         <q-card-section>
           <div class="text-h6 q-mb-md">{{ movie.title }}</div>
-          <div class="text-subtitle2">{{ movie.opening_crawl | truncateByWord}}</div>
+          <div class="text-subtitle2">
+            {{ movie.opening_crawl | truncateByWord }}
+          </div>
         </q-card-section>
       </q-card>
     </div>
@@ -28,7 +30,6 @@
 </style>
 
 <script>
-
 export default {
   name: "StarWarNews",
   components: {},
@@ -46,7 +47,6 @@ export default {
         .get("https://swapi.dev/api/films/")
         .then((resp) => {
           this.movies = resp.data.results.slice(0, 4);
-          window.console.log(this.movies);
         })
         .catch((err) => {
           window.console.error(err);
