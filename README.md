@@ -7,7 +7,7 @@ This project uses Quarkus as Backend with a PostgreSQL DB
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-## 1 start the Docker Container for the PostgreSQL Instance
+## 1. start the docker container for the postgreSQL instance
 
 ```
 docker run --name quarkus-db -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres:13.0
@@ -19,7 +19,7 @@ Demo Data will injected on Dev mode for the Database is located under
 user-load-script.sql
 ```
 
-## 2. Running the backend application in dev mode
+## 2. To run the backend application in dev mode
 
 You can run your backend application in dev mode that enables live coding using:
 
@@ -29,7 +29,7 @@ You can run your backend application in dev mode that enables live coding using:
 
 ## 3. Running the frontend application
 
-# Demo App (frontend)
+# Vue PWA App (frontend)
 
 A Quasar Framework app
 
