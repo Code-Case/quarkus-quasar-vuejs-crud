@@ -257,7 +257,6 @@ export default {
         .get("http://localhost:8081/user")
         .then((response) => {
           this.data = response.data;
-          window.console.log(this.data);
         })
         .catch((err) => {
           window.console.error(err);
@@ -296,7 +295,6 @@ export default {
           userRole: this.editedItem.userRole,
         })
         .then(() => {
-          window.console.log(this.data);
           this.getAllUser();
         })
         .catch((err) => {
