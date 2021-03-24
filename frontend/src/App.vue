@@ -3,7 +3,7 @@
     <q-layout view="hHh Lpr fFf">
       <q-header elevated>
         <q-toolbar>
-          <q-toolbar-title> Quarkus App </q-toolbar-title>
+          <q-toolbar-title>App</q-toolbar-title>
 
           <q-tabs
             dense
@@ -26,7 +26,7 @@
       </q-page-container>
       <q-footer elevated>
         <q-toolbar>
-          <q-toolbar-title>Footer</q-toolbar-title>
+          <q-toolbar-title>&copy; 2021 </q-toolbar-title>
         </q-toolbar>
       </q-footer>
     </q-layout>
