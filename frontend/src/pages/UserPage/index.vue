@@ -12,7 +12,6 @@ export default {
   components: { UserAPI },
   data() {
     return {};
-  },
-  created() {},
+  }
 };
 </script>

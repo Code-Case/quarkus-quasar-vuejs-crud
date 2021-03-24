@@ -35,7 +35,7 @@ export default {
   components: {},
   data() {
     return {
-      movies: [],
+      movies: []
     };
   },
   async created() {
@@ -51,7 +51,7 @@ export default {
         .catch((err) => {
           window.console.error(err);
         });
-    },
-  },
+    }
+  }
 };
 </script>

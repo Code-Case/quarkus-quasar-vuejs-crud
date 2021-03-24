@@ -16,6 +16,6 @@ export default {
   components: { StarWarsNews, OpenNewsAPI },
   data() {
     return {};
-  },
+  }
 };
 </script>

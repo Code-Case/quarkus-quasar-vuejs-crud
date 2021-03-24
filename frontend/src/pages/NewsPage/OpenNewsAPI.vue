@@ -34,7 +34,7 @@ export default {
   components: {},
   data() {
     return {
-      news: [],
+      news: []
     };
   },
   async created() {
@@ -44,7 +44,7 @@ export default {
     async getNews() {
       await this.$axios
         .get(
-          "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=751dd9ba2a62432ab7e7acbc62cb0512",
+          "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=751dd9ba2a62432ab7e7acbc62cb0512"
         )
         .then((resp) => {
           this.news = resp.data.articles.slice(0, 4);
@@ -53,7 +53,7 @@ export default {
         .catch((err) => {
           window.console.error(err);
         });
-    },
-  },
+    }
+  }
 };
 </script>

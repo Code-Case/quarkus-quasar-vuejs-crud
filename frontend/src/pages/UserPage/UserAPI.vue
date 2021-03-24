@@ -180,7 +180,7 @@ export default {
       initialPagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 20,
+        rowsPerPage: 20
       },
       data: [],
       show_dialog_addUser: false,
@@ -193,7 +193,7 @@ export default {
         firstName: "",
         lastName: "",
         emailAdress: "",
-        userRole: "",
+        userRole: ""
       },
       id: "",
       firstName: "",
@@ -205,7 +205,7 @@ export default {
           name: "id",
           label: "ID",
           field: (row) => row.id,
-          sortable: true,
+          sortable: true
         },
         {
           name: "firstName",
@@ -213,38 +213,38 @@ export default {
           label: "Vorname",
           align: "left",
           field: (row) => row.firstName,
-          sortable: true,
+          sortable: true
         },
         {
           name: "lastName",
           align: "center",
           label: "Nachname",
           field: (row) => row.lastName,
-          sortable: true,
+          sortable: true
         },
         {
           name: "emailAdress",
           label: "Emailadresse",
           field: (row) => row.emailAdress,
-          sortable: true,
+          sortable: true
         },
         {
           name: "userRole",
           label: "Rolle",
           field: (row) => row.userRole,
-          sortable: true,
+          sortable: true
         },
         {
           name: "actionEdit",
           label: "",
-          field: "actions",
+          field: "actions"
         },
         {
           name: "actionDelete",
           label: "",
-          field: "actions",
-        },
-      ],
+          field: "actions"
+        }
+      ]
     };
   },
   async created() {
@@ -277,7 +277,7 @@ export default {
           firstName: this.firstName,
           lastName: this.lastName,
           emailAdress: this.emailAdress,
-          userRole: this.userRole,
+          userRole: this.userRole
         })
         .then(() => {
           this.getAllUser();
@@ -308,7 +308,7 @@ export default {
         .catch((err) => {
           window.console.error(err, this.editedItem.id);
         });
-    },
-  },
+    }
+  }
 };
 </script>
