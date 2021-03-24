@@ -11,11 +11,11 @@
             class="bg-primary text-white shadow-2"
             :breakpoint="0"
           >
-            <router-link
+            <q-route-tab
               v-for="route in $router.options.routes"
               :key="route.path"
               :to="route.path"
-              >{{ route.name }}</router-link
+              >{{ route.name }}</q-route-tab
             >
           </q-tabs>
         </q-toolbar>

@@ -3,22 +3,22 @@
 #
 # Before building the container image run:
 #
-# mvn package -Dquarkus.package.type=fast-jar 
+# mvn package -Dquarkus.package.type=fast-jar
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.fast-jar -t quarkus/coffee-supply-api-fast-jar .
+# docker build -f src/main/docker/Dockerfile.fast-jar -t quarkus/user-api-fast-jar .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/coffee-supply-api-fast-jar
+# docker run -i --rm -p 8080:8080 quarkus/user-api-fast-jar
 #
 # If you want to include the debug port into your docker image
 # you will have to expose the debug port (default 5005) like this :  EXPOSE 8080 5050
-# 
-# Then run the container using : 
 #
-# docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/coffee-supply-api-fast-jar
+# Then run the container using :
+#
+# docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/user-api-fast-jar
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
