@@ -48,7 +48,6 @@ export default {
         )
         .then((resp) => {
           this.news = resp.data.articles.slice(0, 4);
-          window.console.log(resp.data);
         })
         .catch((err) => {
           window.console.error(err);

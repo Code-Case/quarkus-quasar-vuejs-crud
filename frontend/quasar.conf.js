@@ -157,9 +157,9 @@ module.exports = function (/* ctx */) {
             src: "icons/icon-512x512.png",
             sizes: "512x512",
             type: "image/png"
-          },
-        ],
-      },
+          }
+        ]
+      }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
@@ -201,7 +201,7 @@ module.exports = function (/* ctx */) {
       extendWebpack(/* cfg */) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
-      },
-    },
+      }
+    }
   };
 };

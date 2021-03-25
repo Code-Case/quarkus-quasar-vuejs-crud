@@ -33,9 +33,13 @@
 
                 <q-card-section>
                   <div class="row">
-                    <q-input v-model="firstName" label="Vorname" />
+                    <q-input
+                      v-model="firstName"
+                      label="Vorname"
+                      :rules="[(val) => !!val || 'First name is required']"
+                    />
                     <q-input v-model="lastName" label="Nachname" />
-                    <q-input v-model="emailAdress" label="Email" />
+                    <q-input v-model="emailAdress" type="email" label="Email" />
                   </div>
                   <q-select
                     outlined
@@ -98,7 +102,7 @@
             </q-dialog>
           </div>
 
-          <!-- edit user popup -->
+          <!-- delete user confirmation popup -->
 
           <div class="q-pa-sm q-gutter-sm">
             <q-dialog v-model="show_dialog_deleteUser">
@@ -176,9 +180,9 @@ export default {
   data() {
     return {
       model: null,
-      options: ["User", "Editor", "Admin"],
+      options: ["User", "Owner", "Admin"],
       initialPagination: {
-        sortBy: "desc",
+        sortBy: "asc",
         descending: false,
         rowsPerPage: 20
       },
@@ -280,6 +284,10 @@ export default {
           userRole: this.userRole
         })
         .then(() => {
+          this.firstName = "";
+          this.lastName = "";
+          this.emailAdress = "";
+          this.userRole = "";
           this.getAllUser();
         })
         .catch((err) => {
