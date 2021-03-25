@@ -54,7 +54,13 @@
                 <q-card-actions align="right">
                   <q-btn
                     flat
-                    label="OK"
+                    label="Abrechen"
+                    color="primary"
+                    v-close-popup="cancelEnabled"
+                  />
+                  <q-btn
+                    flat
+                    label="Speichern"
                     color="primary"
                     v-close-popup
                     @click="createUser"
@@ -92,7 +98,13 @@
                 <q-card-actions align="right">
                   <q-btn
                     flat
-                    label="OK"
+                    label="Abrechen"
+                    color="primary"
+                    v-close-popup="cancelEnabled"
+                  />
+                  <q-btn
+                    flat
+                    label="Speichern"
                     color="primary"
                     v-close-popup
                     @click="saveEdits"
@@ -114,6 +126,12 @@
                   </div>
                 </q-card-section>
                 <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    label="Abrechen"
+                    color="primary"
+                    v-close-popup="cancelEnabled"
+                  />
                   <q-btn
                     flat
                     label="Löschen"
@@ -208,7 +226,7 @@ export default {
         {
           name: "id",
           label: "ID",
-          field: (row) => row.id,
+          field: "id",
           sortable: true
         },
         {
@@ -216,26 +234,26 @@ export default {
           required: true,
           label: "Vorname",
           align: "left",
-          field: (row) => row.firstName,
+          field: "firstName",
           sortable: true
         },
         {
           name: "lastName",
           align: "center",
           label: "Nachname",
-          field: (row) => row.lastName,
+          field: "lastName",
           sortable: true
         },
         {
           name: "emailAdress",
           label: "Emailadresse",
-          field: (row) => row.emailAdress,
+          field: "emailAdress",
           sortable: true
         },
         {
           name: "userRole",
           label: "Rolle",
-          field: (row) => row.userRole,
+          field: "userRole",
           sortable: true
         },
         {
